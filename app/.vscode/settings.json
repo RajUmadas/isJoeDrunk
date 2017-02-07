@@ -1,0 +1,7 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "python.autoComplete.extraPaths": [
+    "/Users/rajendraumadas/Tools/google-cloud-sdk/platform/google_appengine",
+    "/Users/rajendraumadas/Tools/google-cloud-sdk/platform/google_appengine/google",
+    "/Users/rajendraumadas/Tools/google-cloud-sdk/platform/google_appengine/lib" ]
+}

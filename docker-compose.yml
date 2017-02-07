@@ -1,0 +1,11 @@
+web:
+  build: ./app/.
+  command: python -u /opt/app/main.py
+  ports:
+    - "80:80"
+  volumes:
+    - ./app:/opt/app
+  links:
+    - db
+db:
+  image: mongo:3.0.2

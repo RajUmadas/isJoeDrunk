@@ -37,6 +37,16 @@ def set_yes():
     db.answers.insert_one({'answer': 'Yes'})
     sleep(0.5)
     return redirect('/')
+    
+@APP.errorhandler(404)
+def page_not_found(dummy):
+    """Return a custom 404 error."""
+    return render_template('error.html', reason="Aint Here"), 404
+
+@APP.errorhandler(500)
+def application_error(dummy):
+    """Return a custom 500 error."""
+    return render_template('error.html', reason="Whoaaaa"), 500
 
 
 if __name__ == "__main__":

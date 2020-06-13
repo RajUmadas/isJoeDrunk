@@ -29,13 +29,16 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_PASSWORD: 76street!
+      POSTGRES_DB: ijd_db
+    volumes:
+      - ./service/dbmigrate/sql:/docker-entrypoint-initdb.d
 
   dbmigration:
     image: golang:1.14
     working_dir: "/app/service/dbmigrate"
     environment:
       DEPLOY_CHANNEL: "local-devel"
-      DATABASE_URL: "postgresql://postgres:76street!@postgres-local:5432/postgres?sslmode=disable"
+      DATABASE_URL: "postgresql://postgres:76street!@postgres-local:5432/ijd_db?sslmode=disable"
     volumes:
       - ".:/app"
     command: ["go", "run", "-race", "main.go"]

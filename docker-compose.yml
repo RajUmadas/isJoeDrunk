@@ -5,6 +5,8 @@ services:
     ports:
       - "8000:8000"
     working_dir: "/app/service/ansd"
+    environment:
+      DEPLOY_CHANNEL: "local-devel"
     volumes:
       - ".:/app"
     command: ["go", "run", "-race", "main.go"]
@@ -12,6 +14,8 @@ services:
   answeb:
     image: node:14.4
     working_dir: "/app/client/web/is-joe-drunk-ans"
+    environment:
+      DEPLOY_CHANNEL: "devel"
     stdin_open: true
     volumes: 
       - ".:/app"
@@ -19,9 +23,23 @@ services:
       - "8080:3000"
     command: yarn run start
 
-  postgres:
+  postgres-local:
     image: postgres:12.3
     ports:
       - "5432:5432"
     environment:
       POSTGRES_PASSWORD: 76street!
+
+  dbmigration:
+    image: golang:1.14
+    working_dir: "/app/service/dbmigrate"
+    environment:
+      DEPLOY_CHANNEL: "local-devel"
+      DATABASE_URL: "postgresql://postgres:76street!@postgres-local:5432/postgres?sslmode=disable"
+    volumes:
+      - ".:/app"
+    command: ["go", "run", "-race", "main.go"]
+    links:
+      - postgres-local
+    depends_on:
+      - postgres-local

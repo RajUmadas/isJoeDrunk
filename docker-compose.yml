@@ -1,0 +1,27 @@
+version: "3"
+services:
+  ansd:
+    image: golang:1.14
+    ports:
+      - "8000:8000"
+    working_dir: "/app/service/ansd"
+    volumes:
+      - ".:/app"
+    command: ["go", "run", "-race", "main.go"]
+
+  answeb:
+    image: node:14.4
+    working_dir: "/app/client/web/is-joe-drunk-ans"
+    stdin_open: true
+    volumes: 
+      - ".:/app"
+    ports:
+      - "8080:3000"
+    command: yarn run start
+
+  postgres:
+    image: postgres:12.3
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: 76street!

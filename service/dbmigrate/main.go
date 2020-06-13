@@ -18,14 +18,16 @@ func main() {
 		}
 		defer conn.Close(context.Background())
 
-		var greeting string
-		err = conn.QueryRow(context.Background(), "select 'Hello, world!'").Scan(&greeting)
+		var ans string
+		var lit_level string
+		err = conn.QueryRow(context.Background(), "select ans, lit_level from ans").Scan(&ans, &lit_level)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
 			os.Exit(1)
 		}
+		fmt.Println(ans)
+		fmt.Println(lit_level)
 
-		fmt.Println(greeting)
 		return
 	}
 

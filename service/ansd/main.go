@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/jackc/pgx/v4"
 )
@@ -59,7 +60,11 @@ func main() {
 	r := mux.NewRouter()
 	// Routes consist of a path and a handler function.
 	r.HandleFunc("/", getAns)
+	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type"})
+	originsOk := handlers.AllowedOrigins([]string{"*"})
+	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
 
 	// Bind to a port and pass our router in
-	log.Fatal(http.ListenAndServe(":8000", r))
+	//log.Fatal(http.ListenAndServe(":8000", r))
+	log.Fatal(http.ListenAndServe(":8000", handlers.CORS(originsOk, headersOk, methodsOk)(r)))
 }

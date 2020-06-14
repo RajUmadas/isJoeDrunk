@@ -11,8 +11,6 @@ services:
     volumes:
       - ".:/app"
     command: ["go", "run", "-race", "main.go"]
-    links:
-      - postgres-local
     depends_on:
       - postgres-local
 
@@ -47,7 +45,5 @@ services:
     volumes:
       - ".:/app"
     command: ["go", "run", "-race", "main.go"]
-    links:
-      - postgres-local
     depends_on:
       - postgres-local

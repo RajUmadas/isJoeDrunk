@@ -17,3 +17,27 @@ INSERT INTO ans (
     '10'
 );
 
+INSERT INTO ans (
+    "ans",
+    "lit_level"
+)VALUES(
+    'yes',
+    '7'
+);
+
+INSERT INTO ans (
+    "ans",
+    "lit_level"
+)VALUES(
+    'no',
+    '0'
+);
+
+INSERT INTO ans (
+    "ans",
+    "lit_level"
+)VALUES(
+    'yes',
+    '9000'
+);
+

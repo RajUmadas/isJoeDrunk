@@ -7,9 +7,14 @@ services:
     working_dir: "/app/service/ansd"
     environment:
       DEPLOY_CHANNEL: "local-devel"
+      DATABASE_URL: "postgresql://postgres:76street!@postgres-local:5432/ijd_db?sslmode=disable"
     volumes:
       - ".:/app"
     command: ["go", "run", "-race", "main.go"]
+    links:
+      - postgres-local
+    depends_on:
+      - postgres-local
 
   answeb:
     image: node:14.4
